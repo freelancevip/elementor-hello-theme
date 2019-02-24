@@ -153,7 +153,7 @@ module.exports = function (grunt) {
                     to: themeName
                 }, {
                     from: 'hello-elementor',
-                    to: 'my-elementor-hello'
+                    to: themeTextDomain
                 }]
             },
             functionsprefix: {
