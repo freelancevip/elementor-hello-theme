@@ -5,6 +5,7 @@
 
 let themeName = 'My Hello theme';
 let themeTextDomain = 'my-elementor-hello';
+let themePrefix = 'my_elementor_hello';
 
 module.exports = function (grunt) {
 
@@ -153,6 +154,14 @@ module.exports = function (grunt) {
                 }, {
                     from: 'hello-elementor',
                     to: 'my-elementor-hello'
+                }]
+            },
+            functionsprefix: {
+                src: ['functions.php'],
+                dest: 'functions.php',
+                replacements: [{
+                    from: 'hello_elementor_theme_',
+                    to: themePrefix
                 }]
             }
         }
