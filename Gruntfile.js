@@ -3,24 +3,28 @@
  */
 'use strict';
 
-module.exports = function( grunt ) {
+let themeName = 'My Hello theme';
+let themeTextDomain = 'my-elementor-hello';
 
-    require( 'matchdep' ).filterDev( 'grunt-*' ).forEach( grunt.loadNpmTasks );
-    grunt.loadNpmTasks( 'grunt-wp-i18n' );
+module.exports = function (grunt) {
+
+    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    grunt.loadNpmTasks('grunt-wp-i18n');
+    grunt.loadNpmTasks('grunt-text-replace');
 
     // Project configuration.
-    grunt.initConfig( {
-        pkg: grunt.file.readJSON( 'package.json' ),
+    grunt.initConfig({
+        pkg: grunt.file.readJSON('package.json'),
 
         sass: {
             dist: {
-                files: [ {
+                files: [{
                     expand: true,
                     cwd: 'assets/scss',
                     src: '*.scss',
                     dest: './',
                     ext: '.css'
-                } ]
+                }]
             }
         },
 
@@ -30,17 +34,17 @@ module.exports = function( grunt ) {
                     //map: true,
 
                     processors: [
-                        require( 'autoprefixer' )( {
+                        require('autoprefixer')({
                             browsers: 'last 10 versions'
-                        } )
+                        })
                     ]
                 },
-                files: [ {
+                files: [{
                     src: [
                         '*.css',
                         '!*.min.css'
                     ]
-                } ]
+                }]
             },
             /*minify: {
                 options: {
@@ -67,7 +71,7 @@ module.exports = function( grunt ) {
                 files: [
                     'assets/scss/**/*.scss'
                 ],
-                tasks: [ 'styles' ]
+                tasks: ['styles']
             }
         },
 
@@ -119,7 +123,7 @@ module.exports = function( grunt ) {
 
         addtextdomain: {
             options: {
-                textdomain: 'my-elementor-hello',    // Project text domain.
+                textdomain: themeTextDomain,    // Project text domain.
                 updateDomains: ['hello-elementor']  // List of text domains to replace.
             },
             target: {
@@ -137,27 +141,41 @@ module.exports = function( grunt ) {
                     ]
                 }
             }
+        },
+
+        replace: {
+            wptheme: {
+                src: ['style.css'],
+                dest: 'style.css',
+                replacements: [{
+                    from: 'Hello Elementor',
+                    to: themeName
+                }, {
+                    from: 'hello-elementor',
+                    to: 'my-elementor-hello'
+                }]
+            }
         }
 
-    } );
+    });
 
-    grunt.registerTask( 'i18n', [
+    grunt.registerTask('i18n', [
         'checktextdomain',
-    ] );
+    ]);
 
-    grunt.registerTask( 'wp_readme', [
+    grunt.registerTask('wp_readme', [
         'wp_readme_to_markdown',
-    ] );
+    ]);
 
-    grunt.registerTask( 'styles', [
+    grunt.registerTask('styles', [
         'sass',
         'postcss'
-    ] );
+    ]);
 
     // Default task(s).
-    grunt.registerTask( 'default', [
+    grunt.registerTask('default', [
         'i18n',
         'styles',
         'wp_readme',
-    ] );
+    ]);
 };
