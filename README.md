@@ -51,6 +51,14 @@ However, if for some reason there is still a need to add or change the site's CS
 2. Type in 'Elementor Hello' in the search form and hit the 'Enter' key on your keyboard.
 3. Click on the 'Activate' button to use your new theme right away.
 4. Navigate to Elementor and start building your site.
+5. In Gruntfile.js change 
+```js
+textdomain: 'my-elementor-hello'
+```
+to your textdomain name and run
+```cmd
+grunt addtextdomain
+```
 
 ## Frequently Asked Questions ##
 
